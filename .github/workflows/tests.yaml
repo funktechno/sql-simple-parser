@@ -96,10 +96,11 @@ jobs:
       - run: npm ci
       - run: npm test
       - name: upload junit
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: junit
           path: junit.xml
+          retention-days: ${{ env.retention_days }}
       # displays in summary page
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v3
@@ -114,10 +115,11 @@ jobs:
           path: junit.xml
       - run: npm run test:coverage
       - name: upload code coverage
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: Report-CodeCoverage
           path: coverage
+          retention-days: ${{ env.retention_days }}
       # adds coverage comment to pr
       - name: parse coverage
         uses: danhunsaker/clover-reporter-action@v0.2.17-clover
