@@ -459,44 +459,26 @@ export class SqlSimpleParser {
     }
     if (this.foreignKeyList.length > 0) {
       this.foreignKeyList.forEach((fk) => {
-        // find table index
-        const pkTableIndex = this.tableList.findIndex(
+        const tableIndex = this.tableList.findIndex(
           (t) =>
-            t.Name.toLocaleLowerCase() ==
+            t.Name.toLocaleLowerCase() ===
             fk.ReferencesTableName.toLocaleLowerCase()
         );
 
-        // let fkTableIndex = this.tableList.findIndex(
-        //   (t) => t.Name == fk.PrimaryKeyTableName
-        // );
-
-        // find property index
-        if (pkTableIndex > -1) {
-          const propertyIndex = this.tableList[pkTableIndex].Properties.findIndex(
+        if (tableIndex > -1) {
+          const propertyIndex = this.tableList[tableIndex].Properties.findIndex(
             (p) =>
-              p.Name.toLocaleLowerCase() ==
-              fk.PrimaryKeyName.toLocaleLowerCase()
+              p.Name.toLocaleLowerCase() ===
+              fk.ReferencesPropertyName.toLocaleLowerCase()
           );
           if (propertyIndex > -1) {
-            this.tableList[pkTableIndex].Properties[
-              propertyIndex
-            ].ForeignKey.push(fk);
+            const property = this.tableList[tableIndex].Properties[propertyIndex];
+            property.ForeignKey.push(fk);
             if (!fk.IsDestination) {
-              this.tableList[pkTableIndex].Properties[
-                propertyIndex
-              ].IsForeignKey = true;
+              property.IsForeignKey = true;
             }
           }
         }
-
-        // if (fkTableIndex > -1) {
-        //   let propertyIndex = this.tableList[fkTableIndex].Properties.findIndex(
-        //     (p) => p.Name == fk.PrimaryKeyName
-        //   );
-        //   if (propertyIndex > -1) {
-        //     this.tableList[fkTableIndex].Properties[propertyIndex].ForeignKey.push(fk)
-        //   }
-        // }
       });
     }
 
