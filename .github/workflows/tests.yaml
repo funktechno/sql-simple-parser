@@ -90,9 +90,9 @@ jobs:
           name: version-info
           path: version-${{ steps.extract-version.outputs.VERSION }}.txt
           retention-days: ${{ env.retention_days }}
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v6
         with:
-          node-version: current
+          node-version: 16
       - run: npm ci
       - run: npm test
       - name: upload junit
