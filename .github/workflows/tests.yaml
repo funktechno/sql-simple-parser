@@ -122,14 +122,6 @@ jobs:
           name: Report-CodeCoverage
           path: coverage
           retention-days: ${{ env.retention_days }}
-      # adds coverage comment to pr
-      - name: Report coverage
-        uses: dorny/test-reporter@v1
-        with:
-          name: Jest Coverage
-          path: coverage/clover.xml
-          reporter: clover
-          fail-on-error: false
 
 
   automerge:
