@@ -92,7 +92,7 @@ jobs:
           retention-days: ${{ env.retention_days }}
       - uses: actions/setup-node@v6
         with:
-          node-version: current
+          node-version: 16
       - run: npm ci
       - run: npm test
       - name: upload junit
