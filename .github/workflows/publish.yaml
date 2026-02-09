@@ -80,7 +80,7 @@ jobs:
           bash scripts/updateVersion.sh
 
       - name: Upload version.txt as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         continue-on-error: true
         with:
           name: version-info
