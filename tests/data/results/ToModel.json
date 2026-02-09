@@ -44,7 +44,15 @@
             "Name": "EmployeeId",
             "ColumnProperties": "INTEGER NOT NULL",
             "TableName": "Employee",
-            "ForeignKey": [],
+            "ForeignKey": [
+              {
+                "PrimaryKeyTableName": "Customer",
+                "PrimaryKeyName": "SupportRepId",
+                "ReferencesPropertyName": "EmployeeId",
+                "ReferencesTableName": "Employee",
+                "IsDestination": true
+              }
+            ],
             "IsForeignKey": false,
             "IsPrimaryKey": true
           },
@@ -405,8 +413,16 @@
             "Name": "SupportRepId",
             "ColumnProperties": "INTEGER",
             "TableName": "Customer",
-            "ForeignKey": [],
-            "IsForeignKey": false,
+            "ForeignKey": [
+              {
+                "PrimaryKeyTableName": "Employee",
+                "PrimaryKeyName": "EmployeeId",
+                "ReferencesPropertyName": "SupportRepId",
+                "ReferencesTableName": "Customer",
+                "IsDestination": false
+              }
+            ],
+            "IsForeignKey": true,
             "IsPrimaryKey": false
           }
         ]
@@ -6235,6 +6251,13 @@
             "TableName": "person_businessentity",
             "ForeignKey": [
               {
+                "PrimaryKeyTableName": "person_person",
+                "PrimaryKeyName": "person_person_businessentityid",
+                "ReferencesPropertyName": "businessentityid",
+                "ReferencesTableName": "person_businessentity",
+                "IsDestination": true
+              },
+              {
                 "PrimaryKeyTableName": "purchasing_vendor",
                 "PrimaryKeyName": "businessentityid",
                 "ReferencesPropertyName": "businessentityid",
@@ -6961,6 +6984,20 @@
             "TableName": "production_unitmeasure",
             "ForeignKey": [
               {
+                "PrimaryKeyTableName": "production_product",
+                "PrimaryKeyName": "sizeunitmeasurecode",
+                "ReferencesPropertyName": "unitmeasurecode",
+                "ReferencesTableName": "production_unitmeasure",
+                "IsDestination": true
+              },
+              {
+                "PrimaryKeyTableName": "production_product",
+                "PrimaryKeyName": "weightunitmeasurecode",
+                "ReferencesPropertyName": "unitmeasurecode",
+                "ReferencesTableName": "production_unitmeasure",
+                "IsDestination": true
+              },
+              {
                 "PrimaryKeyTableName": "production_billofmaterials",
                 "PrimaryKeyName": "unitmeasurecode",
                 "ReferencesPropertyName": "unitmeasurecode",
@@ -7146,6 +7183,20 @@
                 "ReferencesPropertyName": "currencycode",
                 "ReferencesTableName": "sales_currency",
                 "IsDestination": true
+              },
+              {
+                "PrimaryKeyTableName": "sales_currencyrate",
+                "PrimaryKeyName": "fromcurrencycode",
+                "ReferencesPropertyName": "currencycode",
+                "ReferencesTableName": "sales_currency",
+                "IsDestination": true
+              },
+              {
+                "PrimaryKeyTableName": "sales_currencyrate",
+                "PrimaryKeyName": "tocurrencycode",
+                "ReferencesPropertyName": "currencycode",
+                "ReferencesTableName": "sales_currency",
+                "IsDestination": true
               }
             ],
             "IsForeignKey": false,
@@ -7324,15 +7375,15 @@
             "TableName": "person_person",
             "ForeignKey": [
               {
-                "PrimaryKeyTableName": "person_businessentity",
-                "PrimaryKeyName": "businessentityid",
-                "ReferencesPropertyName": "person_person_businessentityid",
-                "ReferencesTableName": "person_person",
-                "IsDestination": false
-              },
-              {
                 "PrimaryKeyTableName": "humanresources_employee",
                 "PrimaryKeyName": "businessentityid",
+                "ReferencesPropertyName": "businessentityid",
+                "ReferencesTableName": "person_person",
+                "IsDestination": true
+              },
+              {
+                "PrimaryKeyTableName": "person_businessentitycontact",
+                "PrimaryKeyName": "personid",
                 "ReferencesPropertyName": "businessentityid",
                 "ReferencesTableName": "person_person",
                 "IsDestination": true
@@ -7364,9 +7415,16 @@
                 "ReferencesPropertyName": "businessentityid",
                 "ReferencesTableName": "person_person",
                 "IsDestination": true
+              },
+              {
+                "PrimaryKeyTableName": "sales_customer",
+                "PrimaryKeyName": "personid",
+                "ReferencesPropertyName": "businessentityid",
+                "ReferencesTableName": "person_person",
+                "IsDestination": true
               }
             ],
-            "IsForeignKey": true,
+            "IsForeignKey": false,
             "IsPrimaryKey": true
           },
           {
@@ -7655,6 +7713,13 @@
                 "ReferencesPropertyName": "businessentityid",
                 "ReferencesTableName": "purchasing_vendor",
                 "IsDestination": true
+              },
+              {
+                "PrimaryKeyTableName": "purchasing_purchaseorderheader",
+                "PrimaryKeyName": "vendorid",
+                "ReferencesPropertyName": "businessentityid",
+                "ReferencesTableName": "purchasing_vendor",
+                "IsDestination": true
               }
             ],
             "IsForeignKey": true,
@@ -7794,16 +7859,32 @@
             "Name": "fromcurrencycode",
             "ColumnProperties": "bpchar NOT NULL",
             "TableName": "sales_currencyrate",
-            "ForeignKey": [],
-            "IsForeignKey": false,
+            "ForeignKey": [
+              {
+                "PrimaryKeyTableName": "sales_currency",
+                "PrimaryKeyName": "currencycode",
+                "ReferencesPropertyName": "fromcurrencycode",
+                "ReferencesTableName": "sales_currencyrate",
+                "IsDestination": false
+              }
+            ],
+            "IsForeignKey": true,
             "IsPrimaryKey": false
           },
           {
             "Name": "tocurrencycode",
             "ColumnProperties": "bpchar NOT NULL",
             "TableName": "sales_currencyrate",
-            "ForeignKey": [],
-            "IsForeignKey": false,
+            "ForeignKey": [
+              {
+                "PrimaryKeyTableName": "sales_currency",
+                "PrimaryKeyName": "currencycode",
+                "ReferencesPropertyName": "tocurrencycode",
+                "ReferencesTableName": "sales_currencyrate",
+                "IsDestination": false
+              }
+            ],
+            "IsForeignKey": true,
             "IsPrimaryKey": false
           },
           {
@@ -7998,6 +8079,20 @@
                 "IsDestination": true
               },
               {
+                "PrimaryKeyTableName": "production_document",
+                "PrimaryKeyName": "owner",
+                "ReferencesPropertyName": "businessentityid",
+                "ReferencesTableName": "humanresources_employee",
+                "IsDestination": true
+              },
+              {
+                "PrimaryKeyTableName": "purchasing_purchaseorderheader",
+                "PrimaryKeyName": "employeeid",
+                "ReferencesPropertyName": "businessentityid",
+                "ReferencesTableName": "humanresources_employee",
+                "IsDestination": true
+              },
+              {
                 "PrimaryKeyTableName": "sales_salesperson",
                 "PrimaryKeyName": "businessentityid",
                 "ReferencesPropertyName": "businessentityid",
@@ -8136,13 +8231,6 @@
                 "ReferencesPropertyName": "businessentityid",
                 "ReferencesTableName": "person_businessentitycontact",
                 "IsDestination": false
-              },
-              {
-                "PrimaryKeyTableName": "person_person",
-                "PrimaryKeyName": "businessentityid",
-                "ReferencesPropertyName": "personid",
-                "ReferencesTableName": "person_businessentitycontact",
-                "IsDestination": false
               }
             ],
             "IsForeignKey": true,
@@ -8152,8 +8240,16 @@
             "Name": "personid",
             "ColumnProperties": "int(4) NOT NULL",
             "TableName": "person_businessentitycontact",
-            "ForeignKey": [],
-            "IsForeignKey": false,
+            "ForeignKey": [
+              {
+                "PrimaryKeyTableName": "person_person",
+                "PrimaryKeyName": "businessentityid",
+                "ReferencesPropertyName": "personid",
+                "ReferencesTableName": "person_businessentitycontact",
+                "IsDestination": false
+              }
+            ],
+            "IsForeignKey": true,
             "IsPrimaryKey": true
           },
           {
@@ -8458,6 +8554,20 @@
             "TableName": "production_product",
             "ForeignKey": [
               {
+                "PrimaryKeyTableName": "production_billofmaterials",
+                "PrimaryKeyName": "componentid",
+                "ReferencesPropertyName": "productid",
+                "ReferencesTableName": "production_product",
+                "IsDestination": true
+              },
+              {
+                "PrimaryKeyTableName": "production_billofmaterials",
+                "PrimaryKeyName": "productassemblyid",
+                "ReferencesPropertyName": "productid",
+                "ReferencesTableName": "production_product",
+                "IsDestination": true
+              },
+              {
                 "PrimaryKeyTableName": "production_productcosthistory",
                 "PrimaryKeyName": "productid",
                 "ReferencesPropertyName": "productid",
@@ -8622,16 +8732,32 @@
             "Name": "sizeunitmeasurecode",
             "ColumnProperties": "bpchar",
             "TableName": "production_product",
-            "ForeignKey": [],
-            "IsForeignKey": false,
+            "ForeignKey": [
+              {
+                "PrimaryKeyTableName": "production_unitmeasure",
+                "PrimaryKeyName": "unitmeasurecode",
+                "ReferencesPropertyName": "sizeunitmeasurecode",
+                "ReferencesTableName": "production_product",
+                "IsDestination": false
+              }
+            ],
+            "IsForeignKey": true,
             "IsPrimaryKey": false
           },
           {
             "Name": "weightunitmeasurecode",
             "ColumnProperties": "bpchar",
             "TableName": "production_product",
-            "ForeignKey": [],
-            "IsForeignKey": false,
+            "ForeignKey": [
+              {
+                "PrimaryKeyTableName": "production_unitmeasure",
+                "PrimaryKeyName": "unitmeasurecode",
+                "ReferencesPropertyName": "weightunitmeasurecode",
+                "ReferencesTableName": "production_product",
+                "IsDestination": false
+              }
+            ],
+            "IsForeignKey": true,
             "IsPrimaryKey": false
           },
           {
@@ -8982,6 +9108,20 @@
                 "ReferencesPropertyName": "addressid",
                 "ReferencesTableName": "person_address",
                 "IsDestination": true
+              },
+              {
+                "PrimaryKeyTableName": "sales_salesorderheader",
+                "PrimaryKeyName": "billtoaddressid",
+                "ReferencesPropertyName": "addressid",
+                "ReferencesTableName": "person_address",
+                "IsDestination": true
+              },
+              {
+                "PrimaryKeyTableName": "sales_salesorderheader",
+                "PrimaryKeyName": "shiptoaddressid",
+                "ReferencesPropertyName": "addressid",
+                "ReferencesTableName": "person_address",
+                "IsDestination": true
               }
             ],
             "IsForeignKey": false,
@@ -9076,16 +9216,32 @@
             "Name": "productassemblyid",
             "ColumnProperties": "int(4)",
             "TableName": "production_billofmaterials",
-            "ForeignKey": [],
-            "IsForeignKey": false,
+            "ForeignKey": [
+              {
+                "PrimaryKeyTableName": "production_product",
+                "PrimaryKeyName": "productid",
+                "ReferencesPropertyName": "productassemblyid",
+                "ReferencesTableName": "production_billofmaterials",
+                "IsDestination": false
+              }
+            ],
+            "IsForeignKey": true,
             "IsPrimaryKey": false
           },
           {
             "Name": "componentid",
             "ColumnProperties": "int(4) NOT NULL",
             "TableName": "production_billofmaterials",
-            "ForeignKey": [],
-            "IsForeignKey": false,
+            "ForeignKey": [
+              {
+                "PrimaryKeyTableName": "production_product",
+                "PrimaryKeyName": "productid",
+                "ReferencesPropertyName": "componentid",
+                "ReferencesTableName": "production_billofmaterials",
+                "IsDestination": false
+              }
+            ],
+            "IsForeignKey": true,
             "IsPrimaryKey": false
           },
           {
@@ -9161,8 +9317,16 @@
             "Name": "owner",
             "ColumnProperties": "int(4) NOT NULL",
             "TableName": "production_document",
-            "ForeignKey": [],
-            "IsForeignKey": false,
+            "ForeignKey": [
+              {
+                "PrimaryKeyTableName": "humanresources_employee",
+                "PrimaryKeyName": "businessentityid",
+                "ReferencesPropertyName": "owner",
+                "ReferencesTableName": "production_document",
+                "IsDestination": false
+              }
+            ],
+            "IsForeignKey": true,
             "IsPrimaryKey": false
           },
           {
@@ -9841,16 +10005,32 @@
             "Name": "employeeid",
             "ColumnProperties": "int(4) NOT NULL",
             "TableName": "purchasing_purchaseorderheader",
-            "ForeignKey": [],
-            "IsForeignKey": false,
+            "ForeignKey": [
+              {
+                "PrimaryKeyTableName": "humanresources_employee",
+                "PrimaryKeyName": "businessentityid",
+                "ReferencesPropertyName": "employeeid",
+                "ReferencesTableName": "purchasing_purchaseorderheader",
+                "IsDestination": false
+              }
+            ],
+            "IsForeignKey": true,
             "IsPrimaryKey": false
           },
           {
             "Name": "vendorid",
             "ColumnProperties": "int(4) NOT NULL",
             "TableName": "purchasing_purchaseorderheader",
-            "ForeignKey": [],
-            "IsForeignKey": false,
+            "ForeignKey": [
+              {
+                "PrimaryKeyTableName": "purchasing_vendor",
+                "PrimaryKeyName": "businessentityid",
+                "ReferencesPropertyName": "vendorid",
+                "ReferencesTableName": "purchasing_purchaseorderheader",
+                "IsDestination": false
+              }
+            ],
+            "IsForeignKey": true,
             "IsPrimaryKey": false
           },
           {
@@ -9944,6 +10124,20 @@
               {
                 "PrimaryKeyTableName": "sales_salesterritoryhistory",
                 "PrimaryKeyName": "businessentityid",
+                "ReferencesPropertyName": "businessentityid",
+                "ReferencesTableName": "sales_salesperson",
+                "IsDestination": true
+              },
+              {
+                "PrimaryKeyTableName": "sales_store",
+                "PrimaryKeyName": "salespersonid",
+                "ReferencesPropertyName": "businessentityid",
+                "ReferencesTableName": "sales_salesperson",
+                "IsDestination": true
+              },
+              {
+                "PrimaryKeyTableName": "sales_salesorderheader",
+                "PrimaryKeyName": "salespersonid",
                 "ReferencesPropertyName": "businessentityid",
                 "ReferencesTableName": "sales_salesperson",
                 "IsDestination": true
@@ -10671,11 +10865,11 @@
                 "IsDestination": false
               },
               {
-                "PrimaryKeyTableName": "sales_salesperson",
-                "PrimaryKeyName": "businessentityid",
-                "ReferencesPropertyName": "salespersonid",
+                "PrimaryKeyTableName": "sales_customer",
+                "PrimaryKeyName": "storeid",
+                "ReferencesPropertyName": "businessentityid",
                 "ReferencesTableName": "sales_store",
-                "IsDestination": false
+                "IsDestination": true
               }
             ],
             "IsForeignKey": true,
@@ -10693,8 +10887,16 @@
             "Name": "salespersonid",
             "ColumnProperties": "int(4)",
             "TableName": "sales_store",
-            "ForeignKey": [],
-            "IsForeignKey": false,
+            "ForeignKey": [
+              {
+                "PrimaryKeyTableName": "sales_salesperson",
+                "PrimaryKeyName": "businessentityid",
+                "ReferencesPropertyName": "salespersonid",
+                "ReferencesTableName": "sales_store",
+                "IsDestination": false
+              }
+            ],
+            "IsForeignKey": true,
             "IsPrimaryKey": false
           },
           {
@@ -10746,16 +10948,32 @@
             "Name": "personid",
             "ColumnProperties": "int(4)",
             "TableName": "sales_customer",
-            "ForeignKey": [],
-            "IsForeignKey": false,
+            "ForeignKey": [
+              {
+                "PrimaryKeyTableName": "person_person",
+                "PrimaryKeyName": "businessentityid",
+                "ReferencesPropertyName": "personid",
+                "ReferencesTableName": "sales_customer",
+                "IsDestination": false
+              }
+            ],
+            "IsForeignKey": true,
             "IsPrimaryKey": false
           },
           {
             "Name": "storeid",
             "ColumnProperties": "int(4)",
             "TableName": "sales_customer",
-            "ForeignKey": [],
-            "IsForeignKey": false,
+            "ForeignKey": [
+              {
+                "PrimaryKeyTableName": "sales_store",
+                "PrimaryKeyName": "businessentityid",
+                "ReferencesPropertyName": "storeid",
+                "ReferencesTableName": "sales_customer",
+                "IsDestination": false
+              }
+            ],
+            "IsForeignKey": true,
             "IsPrimaryKey": false
           },
           {
@@ -10902,8 +11120,16 @@
             "Name": "salespersonid",
             "ColumnProperties": "int(4)",
             "TableName": "sales_salesorderheader",
-            "ForeignKey": [],
-            "IsForeignKey": false,
+            "ForeignKey": [
+              {
+                "PrimaryKeyTableName": "sales_salesperson",
+                "PrimaryKeyName": "businessentityid",
+                "ReferencesPropertyName": "salespersonid",
+                "ReferencesTableName": "sales_salesorderheader",
+                "IsDestination": false
+              }
+            ],
+            "IsForeignKey": true,
             "IsPrimaryKey": false
           },
           {
@@ -10926,16 +11152,32 @@
             "Name": "billtoaddressid",
             "ColumnProperties": "int(4) NOT NULL",
             "TableName": "sales_salesorderheader",
-            "ForeignKey": [],
-            "IsForeignKey": false,
+            "ForeignKey": [
+              {
+                "PrimaryKeyTableName": "person_address",
+                "PrimaryKeyName": "addressid",
+                "ReferencesPropertyName": "billtoaddressid",
+                "ReferencesTableName": "sales_salesorderheader",
+                "IsDestination": false
+              }
+            ],
+            "IsForeignKey": true,
             "IsPrimaryKey": false
           },
           {
             "Name": "shiptoaddressid",
             "ColumnProperties": "int(4) NOT NULL",
             "TableName": "sales_salesorderheader",
-            "ForeignKey": [],
-            "IsForeignKey": false,
+            "ForeignKey": [
+              {
+                "PrimaryKeyTableName": "person_address",
+                "PrimaryKeyName": "addressid",
+                "ReferencesPropertyName": "shiptoaddressid",
+                "ReferencesTableName": "sales_salesorderheader",
+                "IsDestination": false
+              }
+            ],
+            "IsForeignKey": true,
             "IsPrimaryKey": false
           },
           {
@@ -19585,6 +19827,20 @@
                 "ReferencesPropertyName": "AddressID",
                 "ReferencesTableName": "SalesLT.Address",
                 "IsDestination": true
+              },
+              {
+                "PrimaryKeyTableName": "SalesLT.SalesOrderHeader",
+                "PrimaryKeyName": "BillToAddressID",
+                "ReferencesPropertyName": "AddressID",
+                "ReferencesTableName": "SalesLT.Address",
+                "IsDestination": true
+              },
+              {
+                "PrimaryKeyTableName": "SalesLT.SalesOrderHeader",
+                "PrimaryKeyName": "ShipToAddressID",
+                "ReferencesPropertyName": "AddressID",
+                "ReferencesTableName": "SalesLT.Address",
+                "IsDestination": true
               }
             ],
             "IsForeignKey": false,
@@ -20405,16 +20661,32 @@
             "Name": "ShipToAddressID",
             "ColumnProperties": "[int] NULL",
             "TableName": "SalesLT.SalesOrderHeader",
-            "ForeignKey": [],
-            "IsForeignKey": false,
+            "ForeignKey": [
+              {
+                "PrimaryKeyTableName": "SalesLT.Address",
+                "PrimaryKeyName": "AddressID",
+                "ReferencesPropertyName": "ShipToAddressID",
+                "ReferencesTableName": "SalesLT.SalesOrderHeader",
+                "IsDestination": false
+              }
+            ],
+            "IsForeignKey": true,
             "IsPrimaryKey": false
           },
           {
             "Name": "BillToAddressID",
             "ColumnProperties": "[int] NULL",
             "TableName": "SalesLT.SalesOrderHeader",
-            "ForeignKey": [],
-            "IsForeignKey": false,
+            "ForeignKey": [
+              {
+                "PrimaryKeyTableName": "SalesLT.Address",
+                "PrimaryKeyName": "AddressID",
+                "ReferencesPropertyName": "BillToAddressID",
+                "ReferencesTableName": "SalesLT.SalesOrderHeader",
+                "IsDestination": false
+              }
+            ],
+            "IsForeignKey": true,
             "IsPrimaryKey": false
           },
           {
