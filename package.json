@@ -45,7 +45,7 @@
   "devDependencies": {
     "@types/jest": "^29.0.3",
     "@types/lodash": "^4.14.185",
-    "@types/node": "^18.8.4",
+    "@types/node": "^25.2.2",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
     "@typescript-eslint/parser": "^5.40.0",
     "browserify": "^17.0.0",
