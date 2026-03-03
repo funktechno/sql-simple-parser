@@ -91,7 +91,7 @@ jobs:
           bash scripts/updateVersion.sh
 
       - name: Upload version.txt as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         continue-on-error: true
         with:
           name: version-info
@@ -103,7 +103,7 @@ jobs:
       - run: npm ci
       - run: npm test
       - name: upload junit
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: junit
           path: junit.xml
@@ -117,7 +117,7 @@ jobs:
           check_name: Test Results
       - run: npm run test:coverage
       - name: upload code coverage
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: Report-CodeCoverage
           path: coverage
