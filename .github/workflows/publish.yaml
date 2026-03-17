@@ -15,13 +15,13 @@ jobs:
           fetch-depth: 0 # Fetch full git history for version calculation
 
       - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v4.2.0
+        uses: gittools/actions/gitversion/setup@v4.4.2
         with:
           versionSpec: "6.3.x"
 
       - name: Determine Version
         id: version_step # step id used as a reference for output values
-        uses: gittools/actions/gitversion/execute@v4.2.0
+        uses: gittools/actions/gitversion/execute@v4.4.2
         env:
           DOTNET_GITVERSION_TELEMETRY_OPTOUT: 1
         with:
